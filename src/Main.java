@@ -13,9 +13,10 @@ public class Main {
 //
 //        String number = scanner.nextLine();
 //        System.out.println(isRightNumber(number));
-
+//        System.out.println(searchFragment(text));
         String text = scanner.nextLine();
-        System.out.println(searchFragment(text));
+        System.out.println(maskRegex(text));
+
     }
     //Замена одних фрагментов строк на другие
     public static String formatPhoneNumber(String phone) {
@@ -49,5 +50,16 @@ public class Main {
             result = text.substring(start,end);
         }
         return result;
+    }
+
+    public static String maskRegex(String text) {
+        String regex = "«([^»]+)»";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(text);
+        String citation = "";
+        while (matcher.find()) {
+            citation = matcher.group(0);
+        }
+        return citation;
     }
 }
