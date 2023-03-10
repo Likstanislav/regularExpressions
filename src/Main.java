@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
@@ -8,11 +10,12 @@ public class Main {
 //        System.out.println(formatPhoneNumber(number));
 
 //        System.out.println(splitText("I  know something   about   it"));
+//
+//        String number = scanner.nextLine();
+//        System.out.println(isRightNumber(number));
 
-        System.out.println("Введите номер авто:");
-        String number = scanner.nextLine();
-        System.out.println(isRightNumber(number));
-
+        String text = scanner.nextLine();
+        System.out.println(searchFragment(text));
     }
     //Замена одних фрагментов строк на другие
     public static String formatPhoneNumber(String phone) {
@@ -32,5 +35,19 @@ public class Main {
     public static Boolean isRightNumber(String number) {
         String regex = "[АВЕКМНОРСТУХ][0-9]{3}[АВЕКМНОРСТУХ]{2}[0-9]{2,3}";
             return number.matches(regex);
+    }
+
+    public static String searchFragment(String text) {
+        String regex = "https://[^,\s]+";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(text);
+
+        String result = "";
+        while (matcher.find()) {
+            int start = matcher.start();
+            int end = matcher.end();
+            result = text.substring(start,end);
+        }
+        return result;
     }
 }
